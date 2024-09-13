@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Request System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ffffff, #6060b0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 33px;
+            border-radius: 28px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 662px;
+            width: 100%;
+            margin-top: 30%;
+            position: relative;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: darkred;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #555;
+        }
+
+        .tab-content {
+            
+            display: none;
+        }
+
+        .active-tab {
+            display: block;
+        }
+
+        .admin-request-list {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .request-table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .request-category {
+            margin-bottom: 20px;
+        }
+
+        .request-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .request-table th,
+        .request-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .request-table th {
+            background-color: #f2f2f2;
+        }
+
+        .request {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .request button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .request button:hover {
+            background-color: #555;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs button {
+            background: #f8f5f5;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .nav-tabs button:hover {
+            background: #555;
+        }
+
+        #view {
+            margin-top: 0%;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+
+        <div class="nav-tabs">
+            <button onclick="showTab('form')">Request Form</button>
+            <button onclick="showTab('view')">View Requests</button>
+        </div>
+        <div id="form" class="tab-content active-tab">
+            <h2>Travel Request Form</h2>
+            <form id="travelForm">
+                <div class="form-group">
+                    <label for="empId">Emp Id</label>
+                    <input type="text" id="empId" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="empName">Emp Name</label>
+                    <input type="text" id="empName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="project">Project</label>
+                    <input type="text" id="project" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cause">Cause for Travel</label>
+                    <input type="text" id="cause" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="source">Source</label>
+                    <input type="text" id="source" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fromDate">From Date</label>
+                    <input type="date" id="fromDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="toDate">To Date</label>
+                    <input type="date" id="toDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="noOfDays">No. of Days</label>
+                    <input type="number" id="noOfDays" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modeOfTravel">Mode of Travel</label>
+                    <input type="text" id="modeOfTravel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" required>
+                        <option value="Critical">Critical</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+
+        <!-- View Requests -->
+        <div id="view" class="tab-content">
+            <h2>View Requests</h2>
+            <div class="admin-request-list">
+                <table class="request-table">
+                    <thead>
+                        <tr>
+                            <th>Emp Id</th>
+                            <th>Emp Name</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let requests = [];
+
+        // Handle form submission
+        document.getElementById('travelForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const requestData = {
+                empId: document.getElementById('empId').value,
+                empName: document.getElementById('empName').value,
+                project: document.getElementById('project').value,
+                cause: document.getElementById('cause').value,
+                source: document.getElementById('source').value,
+                destination: document.getElementById('destination').value,
+                fromDate: document.getElementById('fromDate').value,
+                toDate: document.getElementById('toDate').value,
+                noOfDays: document.getElementById('noOfDays').value,
+                modeOfTravel: document.getElementById('modeOfTravel').value,
+                priority: document.getElementById('priority').value,
+                status: 'Pending'
+            };
+
+            requests.push(requestData);
+            document.getElementById('travelForm').reset();
+            alert('Request submitted successfully!');
+            showTab('view');
+            displayRequests();
+        });
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active-tab');
+            });
+            document.getElementById(tabId).classList.add('active-tab');
+        }
+
+        function displayRequests() {
+            const requestTableBody = document.getElementById('requestTableBody');
+
+            requestTableBody.innerHTML = '';
+
+            requests.forEach((req, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${req.empId}</td>
+                <td>${req.empName}</td>
+                <td>${req.status}</td>
+                <td>
+                    <button onclick="viewDetails(${index})">View Details</button>
+                </td>
+            `;
+                requestTableBody.appendChild(row);
+            });
+        }
+
+        function viewDetails(index) {
+            const request = requests[index];
+            alert(`
+            Emp Id: ${request.empId}
+            Emp Name: ${request.empName}
+            Project: ${request.project}
+            Cause: ${request.cause}
+            Source: ${request.source}
+            Destination: ${request.destination}
+            From Date: ${request.fromDate}
+            To Date: ${request.toDate}
+            No. of Days: ${request.noOfDays}
+            Mode of Travel: ${request.modeOfTravel}
+            Priority: ${request.priority}
+            Status: ${request.status}
+        `);
+        }
+
+        function logout() {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+
+</html>
